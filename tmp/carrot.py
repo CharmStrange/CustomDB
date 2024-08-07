@@ -63,9 +63,9 @@ class Cursor:
         for i, db in enumerate(self.dbs):
             print(f"Index [{i}] - {db}")
 
-    def insert(self, index, header, data_int, data_double):
+    def insert(self, index, Title, Price):
         if 0 <= index < len(self.dbs):
-            new_struct = self.dbs[index].new_struct(header, data_int, data_double)
+            new_struct = self.dbs[index].new_struct(Title, Price)
             print(f"Inserted: {new_struct}")
         else:
             print("Error: Index out of range.")
