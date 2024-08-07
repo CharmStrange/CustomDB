@@ -5,16 +5,16 @@ import pickle
 
 class Struct(ct.Structure):
     _fields_ = [
-        ('Title', ct.c_int),
+        ('Title', ct.c_char_p),  # Change to c_char_p for string type
         ('Price', ct.c_double),
     ]
 
     def push(self, Title, Price):
-        self.Title = Title
+        self.Title = Title.encode('utf-8')  # Encode string to bytes
         self.Price = Price
 
     def __str__(self):
-        return f"Struct(Title={self.Title}, Price={self.Price})"
+        return f"Struct(Title={self.Title.decode('utf-8')}, Price={self.Price})"  # Decode bytes to string
 
 class TitanVault:
     def __init__(self, database_name):
@@ -24,7 +24,7 @@ class TitanVault:
 
     def new_struct(self, Title, Price):
         new_structure = Struct()
-        new_structure.push(Title, Price)
+        new_structure.push(Title, float(Price))  # Convert Price to float
         self.base.append(new_structure)
         return new_structure
 
@@ -44,6 +44,7 @@ class TitanVault:
 
     def __str__(self):
         return f"Database: {self.database_name}, Created: {self.created_date}, Structs: {len(self.base)}"
+
 
 class Cursor:
     dbs = []
