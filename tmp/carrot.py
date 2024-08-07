@@ -43,7 +43,7 @@ class TitanVault:
             return None
 
     def __str__(self):
-        return f"Database: {self.database_name}, Created: {self.created_date}, Structs: {len(self.base)}"
+        return f"Database: {self.database_name}, Created(UTC): {self.created_date}, Structs: {len(self.base)}"
 
 
 class Cursor:
